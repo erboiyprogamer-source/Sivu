@@ -372,84 +372,125 @@
      Fantasia-rakentaja
      --------------------------------------------------------- */
   const TOPPINGS = [
-    { id: "kinkku", label: "Kinkku", color: "#f2a3a6", shape: "square" },
-    { id: "jauheliha", label: "Jauheliha", color: "#7a4a2a", shape: "crumble" },
-    { id: "salami", label: "Salami", color: "#b8352b", shape: "disc" },
-    { id: "pepperonimakkara", label: "Pepperoni", color: "#a3261a", shape: "disc" },
-    { id: "kebabliha", label: "Kebabliha", color: "#8b5a2b", shape: "strip" },
-    { id: "kana", label: "Kana", color: "#e3bf8f", shape: "chunk" },
-    { id: "pekoni", label: "Pekoni", color: "#c8553d", shape: "bacon" },
-    { id: "savuporo", label: "Savuporo", color: "#5b2e1f", shape: "strip" },
-    { id: "tonnikala", label: "Tonnikala", color: "#cdbb9c", shape: "chunk" },
-    { id: "katkarapu", label: "Katkarapu", color: "#f49a7a", shape: "shrimp" },
-    { id: "simpukka", label: "Simpukka", color: "#3b3b46", shape: "shell" },
-    { id: "ananas", label: "Ananas", color: "#f8d44c", shape: "wedge" },
-    { id: "herkkusieni", label: "Herkkusieni", color: "#d9c4a6", shape: "mushroom" },
-    { id: "paprika", label: "Paprika", color: "#3c9a3c", shape: "arc" },
-    { id: "sipuli", label: "Sipuli", color: "#b07aa1", shape: "ring" },
-    { id: "oliivi", label: "Oliivi", color: "#26221f", shape: "ring" },
-    { id: "tomaatti", label: "Tomaatti", color: "#e0362a", shape: "tomato" },
-    { id: "jalapeno", label: "Jalapeño", color: "#4caf50", shape: "ring" },
-    { id: "chili", label: "Chili", color: "#d62d20", shape: "sliver" },
-    { id: "aurajuusto", label: "Aurajuusto", color: "#e7edf2", shape: "crumble" },
-    { id: "fetajuusto", label: "Fetajuusto", color: "#fbfaf3", shape: "cube" },
-    { id: "kananmuna", label: "Kananmuna", color: "#fffdf4", shape: "egg" }
+    { id: "kinkku", label: "Kinkku", color: "#f2a3a6", shape: "ham", count: 9 },
+    { id: "jauheliha", label: "Jauheliha", color: "#7a4a2a", shape: "mince", count: 13 },
+    { id: "salami", label: "Salami", color: "#b8352b", shape: "salami", count: 8 },
+    { id: "pepperonimakkara", label: "Pepperoni", color: "#a3261a", shape: "pepperoni", count: 10 },
+    { id: "kebabliha", label: "Kebabliha", color: "#8b5a2b", shape: "kebab", count: 10 },
+    { id: "kana", label: "Kana", color: "#e3bf8f", shape: "chicken", count: 9 },
+    { id: "pekoni", label: "Pekoni", color: "#c8553d", shape: "bacon", count: 8 },
+    { id: "savuporo", label: "Savuporo", color: "#5b2e1f", shape: "reindeer", count: 10 },
+    { id: "tonnikala", label: "Tonnikala", color: "#cdbb9c", shape: "tuna", count: 10 },
+    { id: "katkarapu", label: "Katkarapu", color: "#f49a7a", shape: "shrimp", count: 9 },
+    { id: "simpukka", label: "Simpukka", color: "#3b3b46", shape: "shell", count: 9 },
+    { id: "ananas", label: "Ananas", color: "#f8d44c", shape: "pineapple", count: 10 },
+    { id: "herkkusieni", label: "Herkkusieni", color: "#d9c4a6", shape: "mushroom", count: 9 },
+    { id: "paprika", label: "Paprika", color: "#3c9a3c", shape: "pepper", count: 10 },
+    { id: "sipuli", label: "Sipuli", color: "#b07aa1", shape: "onion", count: 9 },
+    { id: "oliivi", label: "Oliivi", color: "#26221f", shape: "olive", count: 11 },
+    { id: "tomaatti", label: "Tomaatti", color: "#e0362a", shape: "tomato", count: 8 },
+    { id: "jalapeno", label: "Jalapeño", color: "#4caf50", shape: "jalapeno", count: 10 },
+    { id: "chili", label: "Chili", color: "#d62d20", shape: "chili", count: 12 },
+    { id: "aurajuusto", label: "Aurajuusto", color: "#e7edf2", shape: "blue", count: 12 },
+    { id: "fetajuusto", label: "Fetajuusto", color: "#fbfaf3", shape: "feta", count: 12 },
+    { id: "kananmuna", label: "Kananmuna", color: "#fffdf4", shape: "egg", count: 7 }
   ];
   const FANTASIA_PRICE = (findItem("Fantasia") || { it: { prices: [13.3, 33] } }).it.prices;
-  const fant = { sel: [], size: 0, seed: 1 };
+  const fant = { sel: [], size: 0, seed: 1, pos: {} };
 
   function rng(seed) {
     let s = seed >>> 0;
     return () => { s = (s * 1664525 + 1013904223) >>> 0; return s / 4294967296; };
   }
 
-  function shapeSVG(t, x, y, rot, r) {
-    const c = t.color;
-    const g = (inner) => `<g class="topping-piece" style="animation-delay:${(r() * 0.25).toFixed(2)}s" transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(0)})">${inner}</g>`;
-    switch (t.shape) {
-      case "disc": return g(`<circle r="15" fill="${c}" stroke="#6d150d" stroke-width="2"/><circle cx="-5" cy="-3" r="2" fill="#f1c9a5" opacity=".8"/><circle cx="4" cy="5" r="1.8" fill="#f1c9a5" opacity=".8"/><circle cx="5" cy="-6" r="1.5" fill="#f1c9a5" opacity=".7"/>`);
-      case "square": return g(`<rect x="-11" y="-9" width="22" height="18" rx="4" fill="${c}" stroke="#c97479" stroke-width="1.5"/>`);
-      case "cube": return g(`<rect x="-7" y="-7" width="14" height="14" rx="3" fill="${c}" stroke="#d8d4c4" stroke-width="1.5"/>`);
-      case "crumble": return g(`<circle r="5" fill="${c}"/><circle cx="7" cy="3" r="3.6" fill="${c}"/><circle cx="-6" cy="4" r="3.2" fill="${c}"/><circle cx="2" cy="-6" r="3" fill="${c}"/>`);
-      case "strip": return g(`<rect x="-15" y="-4.5" width="30" height="9" rx="4.5" fill="${c}"/><rect x="-11" y="-1.5" width="20" height="2" rx="1" fill="#000" opacity=".18"/>`);
-      case "chunk": return g(`<path d="M-10 -4 Q-6 -11 3 -9 Q11 -6 10 2 Q8 10 -2 9 Q-11 7 -10 -4Z" fill="${c}" stroke="rgba(0,0,0,.18)" stroke-width="1.2"/>`);
-      case "bacon": return g(`<path d="M-16 -3 Q-8 -9 0 -3 T16 -3 L16 4 Q8 -2 0 4 T-16 4Z" fill="${c}"/><path d="M-14 0 Q-7 -5 0 0 T14 0" stroke="#f3c2b0" stroke-width="2" fill="none"/>`);
-      case "shrimp": return g(`<path d="M-9 4 A10 10 0 1 1 9 4" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="M-9 4 A10 10 0 1 1 9 4" stroke="#fff" stroke-width="1" stroke-dasharray="2 4" fill="none" opacity=".6"/>`);
-      case "shell": return g(`<ellipse rx="11" ry="7" fill="${c}"/><ellipse rx="7" ry="3.5" fill="#f2b28c"/>`);
-      case "wedge": return g(`<path d="M0 -11 L10 8 L-10 8Z" fill="${c}" stroke="#d9a90f" stroke-width="2" stroke-linejoin="round"/>`);
-      case "mushroom": return g(`<path d="M-12 1 A12 11 0 0 1 12 1Z" fill="${c}" stroke="#a88b66" stroke-width="1.5"/><rect x="-4" y="0" width="8" height="10" rx="3" fill="#efe3cf" stroke="#a88b66" stroke-width="1.2"/>`);
-      case "arc": return g(`<path d="M-12 4 Q0 -10 12 4" stroke="${c}" stroke-width="5" fill="none" stroke-linecap="round"/>`);
-      case "ring": return g(`<circle r="9" fill="none" stroke="${c}" stroke-width="4.5"/>${t.id === "jalapeno" ? `<circle r="2" cx="2" cy="-2" fill="#f5f0c8"/><circle r="1.6" cx="-3" cy="2" fill="#f5f0c8"/>` : ""}`);
-      case "tomato": return g(`<circle r="14" fill="${c}" stroke="#a51f16" stroke-width="2"/><circle r="9" fill="#f26a55"/><circle cx="-3" cy="-2" r="1.6" fill="#ffe1a8"/><circle cx="3" cy="2" r="1.6" fill="#ffe1a8"/><circle cx="2" cy="-4" r="1.4" fill="#ffe1a8"/>`);
-      case "sliver": return g(`<path d="M-9 0 Q0 -6 9 0 Q0 3 -9 0Z" fill="${c}"/>`);
-      case "egg": return g(`<path d="M-13 0 Q-12 -11 0 -10 Q13 -10 12 1 Q11 12 -1 11 Q-14 10 -13 0Z" fill="${c}"/><circle r="5.5" fill="#f6b51e"/>`);
-      default: return g(`<circle r="8" fill="${c}"/>`);
+  const SHAPES = {
+    ham: `<path d="M-12 -8 Q-2 -12 11 -9 Q14 0 11 9 Q0 12 -11 9 Q-14 0 -12 -8Z" fill="url(#t-ham)" stroke="#d27880" stroke-width="1"/><path d="M-8 -3 Q0 -6 8 -2" stroke="#fde3e3" stroke-width="1.6" fill="none" stroke-linecap="round" opacity=".85"/>`,
+    mince: `<circle r="4.6" fill="#7a4a2a"/><circle cx="6" cy="3" r="3.6" fill="#5e3720"/><circle cx="-5.5" cy="3.5" r="3.2" fill="#8a5632"/><circle cx="1.5" cy="-5.5" r="3" fill="#6b3f22"/><circle cx="-1" cy="0" r="1.3" fill="#b07c4c"/>`,
+    salami: `<circle r="15" fill="url(#t-sal)"/><circle r="14.2" fill="none" stroke="#6e1a12" stroke-width="1.6"/><g fill="#f8d6c4"><ellipse cx="-6" cy="-4" rx="2.2" ry="1.5"/><ellipse cx="4" cy="-7" rx="1.6" ry="1.2"/><ellipse cx="6" cy="3" rx="2" ry="1.4"/><ellipse cx="-3" cy="6" rx="1.7" ry="1.2"/><ellipse cx="0" cy="-1" rx="1.3" ry="1"/><ellipse cx="-9" cy="2" rx="1.2" ry=".9"/></g>`,
+    pepperoni: `<circle r="12.5" fill="url(#t-pep)"/><circle r="11.6" fill="none" stroke="#5e0f08" stroke-width="2"/><ellipse cx="-3.5" cy="-4" rx="4.2" ry="2.4" fill="#ffb08f" opacity=".45"/><circle cx="4" cy="3" r="1" fill="#f3c2a8"/><circle cx="-2" cy="5" r=".9" fill="#f3c2a8"/>`,
+    kebab: `<path d="M-16 -4 Q-8 -8 0 -5 Q8 -3 16 -6 L15 3 Q7 6 0 3 Q-8 1 -15 5Z" fill="url(#t-meat)"/><path d="M-12 -2 Q-4 -4 4 -2 Q9 -1 13 -3" stroke="#3e220e" stroke-width="1.3" fill="none" opacity=".55"/><path d="M-14 3 Q-6 0 2 2" stroke="#c48a52" stroke-width="1" fill="none" opacity=".6"/>`,
+    chicken: `<path d="M-10 -4 Q-6 -11 3 -9 Q11 -6 10 2 Q8 10 -2 9 Q-11 7 -10 -4Z" fill="#ead0a4" stroke="#c49a66" stroke-width="1.1"/><path d="M-6 -6 L1 6 M0 -8 L6 2" stroke="#8f6033" stroke-width="1.7" stroke-linecap="round" opacity=".75"/>`,
+    bacon: `<path d="M-16 -4 Q-8 -10 0 -4 T16 -4 L16 4 Q8 -2 0 4 T-16 4Z" fill="#b8432d"/><path d="M-15 -1 Q-7 -6 0 -1 T15 -1" stroke="#f6c9b5" stroke-width="2" fill="none"/><path d="M-15 2.5 Q-7 -2.5 0 2.5 T15 2.5" stroke="#e58b72" stroke-width="1" fill="none"/>`,
+    reindeer: `<path d="M-13 -2 Q-6 -8 2 -4 Q9 -1 13 -5 Q11 2 3 2 Q-5 0 -13 4Z" fill="#5b2e1f"/><path d="M-9 -1 Q0 -4 9 -2" stroke="#93533a" stroke-width="1" fill="none"/>`,
+    tuna: `<path d="M-7 -3 Q-3 -9 3 -6 Q4 -1 -1 1 Q-6 2 -7 -3Z" fill="#d9c3a3"/><path d="M0 0 Q5 -5 9 -1 Q8 5 3 5 Q-1 4 0 0Z" fill="#c6ad8b"/><path d="M-8 2 Q-4 0 -2 4 Q-4 8 -8 6Z" fill="#e2cfb2"/>`,
+    shrimp: `<path d="M-8 6 A10 10 0 1 1 9 3" stroke="#f49a7a" stroke-width="7.5" fill="none" stroke-linecap="round"/><path d="M-8 6 A10 10 0 1 1 9 3" stroke="#ffd7c6" stroke-width="2" fill="none" stroke-dasharray="1.5 4" stroke-linecap="round"/><path d="M8 3 L14 7 L13 -1Z" fill="#e5735a"/>`,
+    shell: `<ellipse rx="11" ry="7.5" fill="#2f2f3a"/><ellipse rx="8" ry="5" fill="#f2a27c"/><ellipse cx="-2" cy="-1" rx="3" ry="1.6" fill="#ffd0b5" opacity=".7"/>`,
+    pineapple: `<path d="M0 -11 Q2 -11 11 7 Q11 9 9 9 L-9 9 Q-11 9 -11 7 Q-2 -11 0 -11Z" fill="url(#t-pine)" stroke="#d9a20f" stroke-width="1.2"/><path d="M-5 5 L0 -6 L5 5" stroke="#e6aa18" stroke-width="1" fill="none" opacity=".75"/>`,
+    mushroom: `<path d="M-13 2 Q-13 -11 0 -11 Q13 -11 13 2 Q8 2 4 3 L4 11 Q0 13 -4 11 L-4 3 Q-8 2 -13 2Z" fill="#e3d1b4" stroke="#9c7f5c" stroke-width="1.3"/><path d="M-9 0 Q0 -6 9 0 M-6 1 Q0 -3 6 1" stroke="#b0936f" stroke-width="1" fill="none"/>`,
+    pepper: `<path d="M-12 5 Q0 -11 12 5" stroke="#2f8a33" stroke-width="5.5" fill="none" stroke-linecap="round"/><path d="M-9 2 Q0 -8 9 2" stroke="#86d98a" stroke-width="1.4" fill="none" stroke-linecap="round" opacity=".7"/>`,
+    onion: `<path d="M-9 4 A10 10 0 1 1 7 7" stroke="#a96a98" stroke-width="2.6" fill="none" stroke-linecap="round" opacity=".9"/><path d="M-5 3 A6 6 0 1 1 5 4" stroke="#d3a6ca" stroke-width="2" fill="none" stroke-linecap="round" opacity=".9"/>`,
+    olive: `<circle r="7.5" fill="none" stroke="#1e1b18" stroke-width="5"/><path d="M-4.5 -5.5 A7 7 0 0 1 3 -6.5" stroke="#77706a" stroke-width="1.4" fill="none" stroke-linecap="round"/>`,
+    tomato: `<circle r="14" fill="url(#t-tom)"/><circle r="13.2" fill="none" stroke="#a51f16" stroke-width="1.6"/><g fill="#f7a885" opacity=".9"><ellipse cx="0" cy="-6" rx="3.8" ry="4.8"/><ellipse cx="5.4" cy="3.4" rx="3.8" ry="4.8" transform="rotate(120 5.4 3.4)"/><ellipse cx="-5.4" cy="3.4" rx="3.8" ry="4.8" transform="rotate(240 -5.4 3.4)"/></g><g fill="#ffe7a8"><circle cx="0" cy="-6" r="1.2"/><circle cx="5" cy="3" r="1.2"/><circle cx="-5" cy="3" r="1.2"/></g>`,
+    jalapeno: `<circle r="8.5" fill="#cfe39a"/><circle r="8" fill="none" stroke="#3f9a3c" stroke-width="3.2"/><circle cx="2" cy="-2" r="1.5" fill="#f7f2cc"/><circle cx="-2.5" cy="1.5" r="1.4" fill="#f7f2cc"/><circle cx="1.2" cy="3" r="1.2" fill="#f7f2cc"/>`,
+    chili: `<circle r="5" fill="none" stroke="#d62d20" stroke-width="2.6"/><circle r="1.4" fill="#ffd27a"/>`,
+    blue: `<path d="M-6 -3 Q-4 -8 2 -7 Q8 -5 7 1 Q6 7 -1 7 Q-8 6 -6 -3Z" fill="#eef2f4"/><circle cx="-1" cy="-2" r="1.1" fill="#6f8aa3"/><circle cx="3" cy="2" r=".9" fill="#5d7690"/><circle cx="-3" cy="3" r=".8" fill="#7f97ad"/>`,
+    feta: `<rect x="-7" y="-7" width="14" height="14" rx="2.5" fill="#efece0"/><path d="M-7 -4.5 Q-7 -7 -4.5 -7 L4.5 -7 Q7 -7 7 -4.5 L7 -2 L-7 -2Z" fill="#fffef8"/><rect x="-7" y="-7" width="14" height="14" rx="2.5" fill="none" stroke="#d6d0ba" stroke-width="1"/>`,
+    egg: `<ellipse rx="13" ry="10" fill="#fffdf4" stroke="#e7dfc6" stroke-width="1"/><circle cx="1" r="5.8" fill="url(#t-egg)"/>`
+  };
+
+  function pieceSVG(t, x, y, rot, delay) {
+    // Ulompi g sijoittaa ja kääntää, sisempi g animoi pudotuksen paikalleen
+    return `<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${rot.toFixed(0)}) scale(1.25)"><g class="topping-piece" style="animation-delay:${delay.toFixed(2)}s">${SHAPES[t.shape]}</g></g>`;
+  }
+
+  // Pohjan koristeet (paahtuneet kohdat, juustokuplat, oregano) piirretään kerran
+  function decoratePizzaBase() {
+    const r = rng(42);
+    let crust = "", cheese = "";
+    for (let i = 0; i < 34; i++) {
+      const a = r() * Math.PI * 2, d = 172 + r() * 14;
+      crust += `<ellipse cx="${(200 + Math.cos(a) * d).toFixed(1)}" cy="${(200 + Math.sin(a) * d).toFixed(1)}" rx="${(3 + r() * 6).toFixed(1)}" ry="${(1.6 + r() * 2.6).toFixed(1)}" transform="rotate(${(a * 180 / Math.PI + 90).toFixed(0)} ${(200 + Math.cos(a) * d).toFixed(1)} ${(200 + Math.sin(a) * d).toFixed(1)})" fill="#8a4a18" opacity="${(0.18 + r() * 0.3).toFixed(2)}"/>`;
     }
+    for (let i = 0; i < 26; i++) {
+      const a = r() * Math.PI * 2, d = Math.sqrt(r()) * 140;
+      cheese += `<ellipse cx="${(200 + Math.cos(a) * d).toFixed(1)}" cy="${(200 + Math.sin(a) * d).toFixed(1)}" rx="${(3 + r() * 7).toFixed(1)}" ry="${(2.5 + r() * 5).toFixed(1)}" fill="#d3913a" opacity="${(0.16 + r() * 0.26).toFixed(2)}"/>`;
+    }
+    for (let i = 0; i < 55; i++) {
+      const a = r() * Math.PI * 2, d = Math.sqrt(r()) * 146;
+      cheese += `<ellipse cx="${(200 + Math.cos(a) * d).toFixed(1)}" cy="${(200 + Math.sin(a) * d).toFixed(1)}" rx="${(0.8 + r() * 1.2).toFixed(1)}" ry="${(0.6 + r() * 0.7).toFixed(1)}" fill="${r() > 0.5 ? "#4f6b2c" : "#3d5422"}" opacity=".8"/>`;
+    }
+    $("[data-fantasia-crust]").innerHTML = crust;
+    $("[data-fantasia-cheese]").innerHTML = cheese;
+  }
+
+  function placeTopping(id) {
+    // Jokaisen täytteen paikat lasketaan kerran, joten aiemmat täytteet eivät hypi uutta lisättäessä
+    const t = TOPPINGS.find((x) => x.id === id);
+    let h = fant.seed * 131;
+    for (const ch of id) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+    const r = rng(h);
+    const taken = fant.sel.filter((s) => s !== id && fant.pos[s]).flatMap((s) => fant.pos[s].map((p) => [p.x, p.y]));
+    const pts = [];
+    for (let n = 0; n < t.count; n++) {
+      let x, y, tries = 0;
+      do {
+        const a = r() * Math.PI * 2, d = Math.sqrt(r()) * 130;
+        x = 200 + Math.cos(a) * d; y = 200 + Math.sin(a) * d; tries++;
+      } while (tries < 40 && taken.concat(pts.map((p) => [p.x, p.y])).some((p) => (p[0] - x) ** 2 + (p[1] - y) ** 2 < 480));
+      pts.push({ x, y, rot: r() * 360, delay: r() * 0.25 });
+    }
+    fant.pos[id] = pts;
   }
 
   function renderFantasia() {
     const host = $("[data-fantasia-toppings]");
-    const r = rng(fant.seed * 9973 + fant.sel.length);
-    const placed = [];
-    let out = "";
-    fant.sel.forEach((id, ti) => {
+    // Poista valinnasta pois otetut täytteet, lisää uudet – olemassa olevat jäävät paikalleen
+    $$("g[data-t]", host).forEach((g) => { if (!fant.sel.includes(g.dataset.t)) g.remove(); });
+    fant.sel.forEach((id) => {
+      if ($(`g[data-t="${id}"]`, host)) return;
+      if (!fant.pos[id]) placeTopping(id);
       const t = TOPPINGS.find((x) => x.id === id);
-      const count = t.shape === "crumble" ? 14 : t.shape === "cube" || t.shape === "sliver" ? 11 : 9;
-      for (let n = 0; n < count; n++) {
-        let x, y, tries = 0;
-        do {
-          const a = r() * Math.PI * 2, d = Math.sqrt(r()) * 128;
-          x = 200 + Math.cos(a) * d; y = 200 + Math.sin(a) * d; tries++;
-        } while (tries < 30 && placed.some((p) => (p[0] - x) ** 2 + (p[1] - y) ** 2 < 420));
-        placed.push([x, y]);
-        out += shapeSVG(t, x, y, r() * 360, r);
-      }
-      void ti;
+      const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      g.setAttribute("data-t", id);
+      g.innerHTML = fant.pos[id].map((p) => pieceSVG(t, p.x, p.y, p.rot, p.delay)).join("");
+      host.appendChild(g);
     });
-    host.innerHTML = out;
+    Object.keys(fant.pos).forEach((id) => { if (!fant.sel.includes(id)) delete fant.pos[id]; });
 
     const n = fant.sel.length;
     $("[data-fantasia-count]").textContent = n;
+    const badge = $("[data-fantasia-badge]");
+    if (badge) badge.textContent = `${n}/4`;
     $$(".topping").forEach((b) => {
       const on = fant.sel.includes(b.dataset.top);
       b.setAttribute("aria-pressed", String(on));
@@ -463,6 +504,93 @@
     const twin = matchingPizza(fant.sel);
     if (twin) cap += ` – psst, tämä löytyy listalta nimellä ${twin}!`;
     $("[data-fantasia-caption]").textContent = cap;
+    if (fantasiaFloat) fantasiaFloat.bump();
+  }
+
+  /* Mobiilissa pizza seuraa täytevalintoja pienenä kuvana näytön kulmassa */
+  let fantasiaFloat = null;
+  function initFantasiaFloat() {
+    const slot = $("[data-fantasia-slot]");
+    const fl = $("[data-fantasia-float]");
+    const section = $("#fantasia");
+    if (!slot || !fl || !section || !window.matchMedia) return;
+    const mq = window.matchMedia("(max-width: 920px)");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const ease = "cubic-bezier(.2, .8, .2, 1)";
+    const canAnimate = () => typeof fl.animate === "function" && !reduce.matches;
+    let state = "inline", anim = null, ticking = false;
+
+    const run = (frames, opts) => {
+      if (!canAnimate()) return null;
+      if (anim) anim.cancel();
+      anim = fl.animate(frames, opts);
+      return anim;
+    };
+    const flip = (apply) => {
+      const a = fl.getBoundingClientRect();
+      apply();
+      const b = fl.getBoundingClientRect();
+      if (!b.width) return;
+      run([
+        { transformOrigin: "0 0", transform: `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width})` },
+        { transformOrigin: "0 0", transform: "none" }
+      ], { duration: 520, easing: ease });
+    };
+    const setFloating = (on) => {
+      fl.classList.toggle("is-floating", on);
+      slot.classList.toggle("has-float", on);
+      if (on) { fl.setAttribute("role", "button"); fl.setAttribute("tabindex", "0"); fl.setAttribute("aria-label", "Näytä pizzasi isona"); }
+      else { fl.removeAttribute("role"); fl.removeAttribute("tabindex"); fl.removeAttribute("aria-label"); }
+    };
+
+    function go(next) {
+      if (next === state) return;
+      const prev = state;
+      state = next;
+      if (next === "float" && prev === "inline") {
+        flip(() => setFloating(true));
+      } else if (next === "inline" && prev === "float") {
+        flip(() => setFloating(false));
+      } else if (next === "float") {
+        fl.classList.remove("is-gone");
+        setFloating(true);
+        run([{ opacity: 0, transform: "translateY(-16px) scale(.55)" }, { opacity: 1, transform: "none" }], { duration: 380, easing: ease });
+      } else if (next === "gone") {
+        const out = prev === "float" ? run([{ opacity: 1, transform: "none" }, { opacity: 0, transform: "translateY(-16px) scale(.55)" }], { duration: 300, easing: "ease-in" }) : null;
+        const hide = () => { if (state === "gone") { setFloating(true); fl.classList.add("is-gone"); } };
+        if (out) out.onfinish = hide; else hide();
+      } else {
+        fl.classList.remove("is-gone");
+        setFloating(false);
+      }
+    }
+
+    function desired() {
+      if (!mq.matches) return "inline";
+      const headerH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--header-h")) || 64;
+      const s = slot.getBoundingClientRect();
+      const sec = section.getBoundingClientRect();
+      if (s.bottom > headerH + s.height * 0.45) return "inline";
+      if (sec.bottom < window.innerHeight * 0.45) return "gone";
+      return "float";
+    }
+    const update = () => { ticking = false; go(desired()); };
+    const onScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    if (mq.addEventListener) mq.addEventListener("change", onScroll);
+
+    const back = () => { if (state === "float") slot.scrollIntoView({ behavior: reduce.matches ? "auto" : "smooth", block: "center" }); };
+    fl.addEventListener("click", back);
+    fl.addEventListener("keydown", (e) => { if (state === "float" && (e.key === "Enter" || e.key === " ")) { e.preventDefault(); back(); } });
+
+    fantasiaFloat = {
+      bump() {
+        if (state !== "float") return;
+        run([{ transform: "scale(1)" }, { transform: "scale(1.14)" }, { transform: "scale(1)" }], { duration: 420, easing: ease });
+      }
+    };
+    update();
   }
 
   function matchingPizza(sel) {
@@ -475,6 +603,7 @@
   }
 
   function initFantasia() {
+    decoratePizzaBase();
     const box = $("[data-fantasia-options]");
     box.innerHTML = TOPPINGS.map((t) =>
       `<button class="topping" aria-pressed="false" data-top="${t.id}"><span class="sw" style="background:${t.color}"></span>${esc(t.label)}</button>`
@@ -505,6 +634,8 @@
         if (!fant.sel.includes(pick)) fant.sel.push(pick);
       }
       fant.seed = Math.floor(r() * 1000);
+      fant.pos = {};
+      $("[data-fantasia-toppings]").innerHTML = "";
       renderFantasia();
     });
 
@@ -513,6 +644,7 @@
       const labels = fant.sel.map((id) => TOPPINGS.find((t) => t.id === id).label.toLowerCase());
       cart.add({ name: "Fantasia", size: fant.size ? "Perhe" : "Normaali", note: labels.join(", "), price: FANTASIA_PRICE[fant.size] });
     });
+    initFantasiaFloat();
     renderFantasia();
   }
 
@@ -524,14 +656,15 @@
     if (!dlg || typeof dlg.showModal !== "function") return;
     const img = $("[data-lightbox-img]");
     const cap = $("[data-lightbox-cap]");
-    $("[data-gallery]").addEventListener("click", (e) => {
+    const open = (e) => {
       const b = e.target.closest("[data-full]");
       if (!b) return;
       img.src = b.dataset.full;
       img.alt = $("img", b).alt;
       cap.textContent = $("span", b).textContent;
       dlg.showModal();
-    });
+    };
+    $$("[data-gallery], [data-real-photos]").forEach((el) => el.addEventListener("click", open));
     $("[data-lightbox-close]").addEventListener("click", () => dlg.close());
     dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
   }

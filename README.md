@@ -9,7 +9,7 @@ Kotisivu Alajärven **Pizzeria Albertille** (Järvikatu 3, 62900 Alajärvi). Rav
 - **Avoinna nyt -tieto** – yläpalkki, info-kortti ja karttapopup laskevat Suomen ajan mukaan, onko ravintola auki ja milloin se sulkeutuu tai aukeaa.
 - **Koko ruokalista** (68 tuotetta, oikeat hinnat) – kategoriavälilehdet, haku ja suodattimet (kebabliha, kana, aurajuusto, savuporo, merenelävät, tulinen, kasvis). Pizzoissa normaali- ja perhekoon hinnat.
 - **Tilauslista** – hintaa klikkaamalla tuote menee listalle. Lista laskee summan, muistaa sisällön selaimessa ja sen voi kopioida. Itse tilaus tehdään soittamalla, ja siihen on suora soittonappi.
-- **Fantasia-pizzarakentaja** – valitse neljä täytettä, ja pizza piirtyy ruudulle. Jos yhdistelmä on jo listalla (esim. kinkku + ananas + aurajuusto = Hawaiji), sivu kertoo sen.
+- **Fantasia-pizzarakentaja** – valitse neljä täytettä, ja pizza piirtyy ruudulle. Jos yhdistelmä on jo listalla (esim. kinkku + ananas + aurajuusto = Hawaiji), sivu kertoo sen. Puhelimessa pizza siirtyy pienenä näytön kulmaan, kun selaat täytteisiin, joten näet täytteiden putoavan päälle. Kulman pizzaa napauttamalla pääset takaisin isoon pizzaan.
 - **Interaktiivinen kartta** (Leaflet + OpenStreetMap)
   - oma Albert-karttamerkki ja popup, jossa aukiolotieto
   - karttatyylit: kartta, tumma ja ilmakuva
@@ -51,4 +51,5 @@ assets/img/             kuvat (WebP) ja jakokuva og-kuva.jpg
 - Aukioloajat: ravintolan ovessa näkyvät ajat. Poikkeusaukiolot kannattaa tarkistaa Facebookista.
 - Sijainti: OpenStreetMap (Pizzeria Albert, Järvikatu 3 B).
 - Julkisivukuva: Pizzeria Albert / Aisapari ry (Outdooractive). Mainoskuva: Pizzeria Albert.
+- Keittiö-, sali- ja pizzakuvat (Tarina-osio): Pizzeria Albert.
 - Ruokakuvat ovat tunnelmakuvia Unsplashista (Unsplash License).
