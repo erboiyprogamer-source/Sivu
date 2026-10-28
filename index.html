@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="fi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pizzeria Albert · Pizza & Kebab · Alajärvi</title>
+  <meta name="description" content="Pizzeria Albert – Alajärven keskustan pizza- ja kebabravintola Järvikatu 3:ssa vuodesta 2011. Katso ruokalista, aukioloajat ja reittiohjeet.">
+  <meta name="theme-color" content="#141210">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+  <meta property="og:type" content="restaurant">
+  <meta property="og:title" content="Pizzeria Albert – Pizza & Kebab, Alajärvi">
+  <meta property="og:description" content="Alajärven keskustan pizzat ja kebabit Järvikatu 3:ssa. Ruokalista, aukioloajat ja kartta.">
+  <meta property="og:image" content="https://erboiyprogamer-source.github.io/Sivu/assets/img/og-kuva.jpg">
+  <meta property="og:url" content="https://erboiyprogamer-source.github.io/Sivu/">
+  <meta property="og:locale" content="fi_FI">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400..800;1,9..40,400..600&family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..900,0..100,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Pizzeria Albert",
+    "alternateName": "Kebab-Pizzeria Albert",
+    "image": "assets/img/albert-julkisivu.webp",
+    "telephone": "+358 6 557 6310",
+    "servesCuisine": ["Pizza", "Kebab"],
+    "priceRange": "€",
+    "acceptsReservations": false,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Järvikatu 3",
+      "postalCode": "62900",
+      "addressLocality": "Alajärvi",
+      "addressCountry": "FI"
+    },
+    "geo": { "@type": "GeoCoordinates", "latitude": 63.0020671, "longitude": 23.8162725 },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Sunday"], "opens": "10:30", "closes": "22:00" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Friday", "Saturday"], "opens": "10:30", "closes": "23:00" }
+    ],
+    "sameAs": ["https://www.facebook.com/pizzeriaalbert/"]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip" href="#sisalto">Siirry sisältöön</a>
+
+  <svg width="0" height="0" class="sr-only" aria-hidden="true">
+    <defs>
+      <symbol id="ico-phone" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1z"/></symbol>
+      <symbol id="ico-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></symbol>
+      <symbol id="ico-clock" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm1 10.4 3.2 1.9-.8 1.3L11 13V7h2z"/></symbol>
+      <symbol id="ico-bag" viewBox="0 0 24 24"><path fill="currentColor" d="M7 7V6a5 5 0 0 1 10 0v1h3l-1 14H5L4 7zm2 0h6V6a3 3 0 0 0-6 0z"/></symbol>
+      <symbol id="ico-route" viewBox="0 0 24 24"><path fill="currentColor" d="M21.7 11.3 12.7 2.3a1 1 0 0 0-1.4 0l-9 9a1 1 0 0 0 0 1.4l9 9a1 1 0 0 0 1.4 0l9-9a1 1 0 0 0 0-1.4zM14 14.5V12h-4v3H8v-4a1 1 0 0 1 1-1h5V7.5l3.5 3.5z"/></symbol>
+      <symbol id="ico-locate" viewBox="0 0 24 24"><path fill="currentColor" d="M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm9 3h-2.1A7 7 0 0 0 13 5.1V3h-2v2.1A7 7 0 0 0 5.1 11H3v2h2.1a7 7 0 0 0 5.9 5.9V21h2v-2.1a7 7 0 0 0 5.9-5.9H21zm-9 6a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/></symbol>
+      <symbol id="ico-search" viewBox="0 0 24 24"><path fill="currentColor" d="M10 3a7 7 0 0 1 5.6 11.2l5.1 5.1-1.4 1.4-5.1-5.1A7 7 0 1 1 10 3zm0 2a5 5 0 1 0 0 10 5 5 0 0 0 0-10z"/></symbol>
+      <symbol id="ico-close" viewBox="0 0 24 24"><path fill="currentColor" d="m12 10.6 5-5 1.4 1.4-5 5 5 5-1.4 1.4-5-5-5 5L5.6 17l5-5-5-5L7 5.6z"/></symbol>
+      <symbol id="ico-fb" viewBox="0 0 24 24"><path fill="currentColor" d="M14 8V6.3c0-.8.2-1.3 1.4-1.3H17V2h-2.6C11.3 2 10 3.6 10 6.1V8H8v3h2v11h4V11h2.7l.4-3z"/></symbol>
+      <symbol id="ico-copy" viewBox="0 0 24 24"><path fill="currentColor" d="M16 1H4a2 2 0 0 0-2 2v14h2V3h12zm3 4H8a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11z"/></symbol>
+      <symbol id="ico-layers" viewBox="0 0 24 24"><path fill="currentColor" d="m12 16.5-7.4-5.7L3 12l9 7 9-7-1.6-1.2zM12 14l7.4-5.7L21 7l-9-7-9 7 1.6 1.3z"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- ===== Header ===== -->
+  <header class="site-header" id="top">
+    <div class="wrap header-row">
+      <a href="#top" class="brand" aria-label="Pizzeria Albert – etusivulle">
+        <span class="brand-word">Albert</span>
+        <span class="brand-sub">pizza <i>✦</i> kebab</span>
+      </a>
+      <nav class="main-nav" id="paanavi" aria-label="Päävalikko">
+        <a href="#suosikit">Suosikit</a>
+        <a href="#menu">Ruokalista</a>
+        <a href="#fantasia">Fantasia</a>
+        <a href="#tarina">Tarina</a>
+        <a href="#loyda">Kartta</a>
+      </nav>
+      <div class="header-actions">
+        <span class="open-pill" data-open-pill><span class="dot"></span><span data-open-text>Aukioloajat</span></span>
+        <a class="btn btn-yellow btn-sm" href="tel:+35865576310"><svg class="i"><use href="#ico-phone"/></svg><span>Soita</span></a>
+        <button class="nav-toggle" aria-expanded="false" aria-controls="paanavi" aria-label="Avaa valikko"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="sisalto">
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" aria-labelledby="hero-otsikko">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span>Järvikatu 3 · Alajärven keskusta · vuodesta 2011</p>
+          <h1 id="hero-otsikko">Alajärven oma <span class="hl">pizza</span> <span class="amp">&amp;</span> <span class="hl hl-red">kebab.</span></h1>
+          <p class="lead">Sannan ja Leventin Pizzeria Albert on ruokkinut Alajärveä jo 15 vuotta. Reilut annokset, kunnon täytteet ja sama lämmin vastaanotto jokaiselle – laadusta ei tingitä.</p>
+          <div class="hero-cta">
+            <a class="btn btn-yellow" href="#menu">Katso ruokalista</a>
+            <a class="btn btn-ghost" href="tel:+35865576310"><svg class="i"><use href="#ico-phone"/></svg>(06) 557 6310</a>
+          </div>
+          <ul class="hero-facts" aria-label="Pikatiedot">
+            <li><strong data-count="34">34</strong><span>pizzaa listalla</span></li>
+            <li><strong>2</strong><span>kokoa: normaali &amp; perhe</span></li>
+            <li><strong>7</strong><span>päivää viikossa auki</span></li>
+          </ul>
+        </div>
+
+        <div class="hero-art" aria-hidden="true">
+          <div class="pizza-disc"><img src="assets/img/pizza-pepperoni.webp" alt="" width="1000" height="1000"></div>
+          <figure class="polaroid">
+            <img src="assets/img/albert-julkisivu-4x3.webp" alt="" width="1100" height="825">
+            <figcaption>Järvikatu 3 · Alajärvi</figcaption>
+          </figure>
+          <div class="sticker">
+            <svg viewBox="0 0 200 200">
+              <defs><path id="sticker-ring" d="M100,100 m-74,0 a74,74 0 1,1 148,0 a74,74 0 1,1 -148,0"/></defs>
+              <circle cx="100" cy="100" r="96" class="sticker-bg"/>
+              <text class="sticker-ring"><textPath href="#sticker-ring">TERVETULOA ✦ PIZZA ✦ KEBAB ✦ RULLAT ✦ </textPath></text>
+              <text x="100" y="112" text-anchor="middle" class="sticker-big">15</text>
+              <text x="100" y="138" text-anchor="middle" class="sticker-small">vuotta</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div class="checker" aria-hidden="true"></div>
+    </section>
+
+    <!-- ===== Marquee ===== -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Erikoispizza</span><i>✦</i><span>Rullakebab</span><i>✦</i><span>Alajärvipizza</span><i>✦</i><span>Hawaiji</span><i>✦</i><span>Iskender</span><i>✦</i><span>Albert Special</span><i>✦</i><span>Revontuli</span><i>✦</i><span>Kebab Calzone</span><i>✦</i>
+        <span>Erikoispizza</span><i>✦</i><span>Rullakebab</span><i>✦</i><span>Alajärvipizza</span><i>✦</i><span>Hawaiji</span><i>✦</i><span>Iskender</span><i>✦</i><span>Albert Special</span><i>✦</i><span>Revontuli</span><i>✦</i><span>Kebab Calzone</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- ===== Info cards ===== -->
+    <section class="info" aria-label="Yhteystiedot ja aukiolo">
+      <div class="wrap info-grid">
+        <article class="info-card">
+          <svg class="i i-lg"><use href="#ico-clock"/></svg>
+          <div>
+            <h2>Tänään</h2>
+            <p class="info-main" data-today-hours>10.30–22.00</p>
+            <p class="info-sub" data-today-status>&nbsp;</p>
+          </div>
+        </article>
+        <article class="info-card">
+          <svg class="i i-lg"><use href="#ico-pin"/></svg>
+          <div>
+            <h2>Osoite</h2>
+            <p class="info-main">Järvikatu 3</p>
+            <p class="info-sub">62900 Alajärvi · <a href="#loyda">kartta</a></p>
+          </div>
+        </article>
+        <article class="info-card">
+          <svg class="i i-lg"><use href="#ico-phone"/></svg>
+          <div>
+            <h2>Tilaukset</h2>
+            <p class="info-main"><a href="tel:+35865576310">(06) 557 6310</a></p>
+            <p class="info-sub">Soita, niin ruoka odottaa valmiina</p>
+          </div>
+        </article>
+        <article class="info-card">
+          <svg class="i i-lg"><use href="#ico-bag"/></svg>
+          <div>
+            <h2>Syö tai ota mukaan</h2>
+            <p class="info-main">Sali &amp; nouto</p>
+            <p class="info-sub">Keskellä kaupunkia, helppo poiketa</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== Favourites ===== -->
+    <section class="section favs" id="suosikit" aria-labelledby="suosikit-otsikko">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">Talon suosikit</p>
+          <h2 id="suosikit-otsikko">Näitä Alajärvi tilaa eniten</h2>
+          <p class="section-lead">Erikoispizza on nuorten ykkönen, rullakebab tulee hyvänä kakkosena – ja Alajärvipizza tuplakebablihalla on paikallinen klassikko.</p>
+        </header>
+        <div class="fav-grid" data-favs></div>
+      </div>
+    </section>
+
+    <!-- ===== Menu ===== -->
+    <section class="section menu" id="menu" aria-labelledby="menu-otsikko">
+      <div class="wrap">
+        <header class="section-head section-head-row">
+          <div>
+            <p class="kicker">Ruokalista</p>
+            <h2 id="menu-otsikko">Koko menu</h2>
+          </div>
+          <label class="search">
+            <svg class="i"><use href="#ico-search"/></svg>
+            <span class="sr-only">Hae ruokalistalta</span>
+            <input type="search" placeholder="Hae: aura, kana, savuporo…" data-menu-search autocomplete="off">
+          </label>
+        </header>
+
+        <div class="menu-tabs" role="tablist" aria-label="Ruokalistan kategoriat" data-menu-tabs></div>
+        <div class="chips" data-menu-chips aria-label="Suodata täytteen mukaan"></div>
+
+        <div class="menu-board">
+          <p class="menu-note" data-menu-note></p>
+          <div class="menu-list" data-menu-list aria-live="polite"></div>
+          <p class="menu-empty" data-menu-empty hidden>Ei osumia. Kokeile toista hakusanaa – tai kokoa oma <a href="#fantasia">Fantasia-pizza</a>.</p>
+        </div>
+        <p class="fineprint">Klikkaa hintaa lisätäksesi tuotteen tilauslistaan. Hinnat ravintolan ruokalistalta – pidätämme oikeuden muutoksiin.</p>
+      </div>
+    </section>
+
+    <!-- ===== Fantasia builder ===== -->
+    <section class="section fantasia" id="fantasia" aria-labelledby="fantasia-otsikko">
+      <div class="wrap fantasia-grid">
+        <div class="fantasia-stage">
+          <svg class="fantasia-pizza" viewBox="0 0 400 400" role="img" aria-label="Oman pizzasi esikatselu" data-fantasia-svg>
+            <defs>
+              <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+                <stop offset="80%" stop-color="#e9b04f"/><stop offset="93%" stop-color="#c98a32"/><stop offset="100%" stop-color="#9c6424"/>
+              </radialGradient>
+              <radialGradient id="sauce" cx="50%" cy="45%" r="55%">
+                <stop offset="0%" stop-color="#e2452f"/><stop offset="100%" stop-color="#b8281b"/>
+              </radialGradient>
+              <filter id="melt"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
+            </defs>
+            <circle cx="200" cy="200" r="190" fill="url(#crust)"/>
+            <circle cx="200" cy="200" r="164" fill="url(#sauce)"/>
+            <g filter="url(#melt)" opacity=".92">
+              <circle cx="200" cy="200" r="150" fill="#f7dc8a"/>
+            </g>
+            <g data-fantasia-toppings></g>
+          </svg>
+          <p class="fantasia-caption" data-fantasia-caption>Valitse neljä täytettä →</p>
+        </div>
+        <div class="fantasia-panel">
+          <p class="kicker kicker-yellow">Luo oma</p>
+          <h2 id="fantasia-otsikko">Fantasia – neljä täytettä, sinun valintasi</h2>
+          <p class="section-lead">Albertin Fantasia-pizzaan valitset itse neljä täytettä. Kokeile yhdistelmiä tässä ja lisää valmis pizza tilauslistalle.</p>
+          <div class="fantasia-count"><span data-fantasia-count>0</span>/4 täytettä valittu</div>
+          <div class="topping-grid" data-fantasia-options role="group" aria-label="Täytteet"></div>
+          <div class="fantasia-foot">
+            <div class="size-toggle" role="radiogroup" aria-label="Koko">
+              <button role="radio" aria-checked="true" data-size="0">Normaali <b>13,30 €</b></button>
+              <button role="radio" aria-checked="false" data-size="1">Perhe <b>33,00 €</b></button>
+            </div>
+            <div class="fantasia-actions">
+              <button class="btn btn-ghost btn-sm" data-fantasia-random>Yllätä minut</button>
+              <button class="btn btn-yellow" data-fantasia-add disabled>Lisää listalle</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Story ===== -->
+    <section class="section story" id="tarina" aria-labelledby="tarina-otsikko">
+      <div class="wrap story-grid">
+        <div class="story-media">
+          <figure class="taped taped-a">
+            <img src="assets/img/albert-julkisivu.webp" alt="Pizzeria Albertin julkisivu Järvikadulla: keltainen Albert-logo, punainen PIZZERIA-kyltti ja aukioloajat ovessa." width="1274" height="1145" loading="lazy">
+          </figure>
+          <figure class="taped taped-b">
+            <img src="assets/img/albert-mainos.webp" alt="Albert Pizza Kebab – Alajärven keskustassa -mainos, jossa pizza ja kebab ranskalaisilla." width="595" height="287" loading="lazy">
+          </figure>
+        </div>
+        <div class="story-copy">
+          <p class="kicker">Tarina</p>
+          <h2 id="tarina-otsikko">Sannan ja Leventin pizzeria</h2>
+          <p>Pizzeria Albert avasi ovensa Alajärven keskustassa 1.4.2011. Yrittäjät <strong>Sanna ja Levent Bulbul</strong> ovat pitäneet liikeidean samana alusta asti: hyvää, runsasta ruokaa reiluun hintaan. Menua on vuosien varrella hiottu asiakkaiden toiveiden mukaan, sali on remontoitu ja keittiö uusittu.</p>
+          <p>Kymmenvuotisjuhlia vietettiin 2021 tarjouksin ja arvonnoin yhdessä paikallisten yritysten kanssa – ja nyt takana on jo 15 vuotta.</p>
+          <div class="values">
+            <div class="value"><span class="value-num">01</span><h3>Jokainen asiakas on yhtä tärkeä</h3><p>Kaikkia palvellaan samalla lämmöllä, oli kyseessä lounas tai perjantain perhepizza.</p></div>
+            <div class="value"><span class="value-num">02</span><h3>Laadusta ei tingitä</h3><p>Kunnon täytteet ja tuore leipä – rullat paistetaan uunituoreeseen leipään.</p></div>
+          </div>
+          <ol class="timeline">
+            <li><b>2011</b><span>Ovet aukeavat Järvikatu 3:ssa</span></li>
+            <li><b>2021</b><span>10-vuotisjuhlat, uusittu keittiö</span></li>
+            <li><b>2026</b><span>15 vuotta Alajärven keskustassa</span></li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Gallery ===== -->
+    <section class="section gallery" aria-labelledby="galleria-otsikko">
+      <div class="wrap">
+        <header class="section-head">
+          <p class="kicker">Galleria</p>
+          <h2 id="galleria-otsikko">Uunista, vartaasta ja grilliltä</h2>
+        </header>
+        <div class="gallery-grid" data-gallery>
+          <button class="g g-tall" data-full="assets/img/albert-julkisivu.webp"><img src="assets/img/albert-julkisivu-4x3.webp" alt="Pizzeria Albertin julkisivu" loading="lazy" width="1100" height="825"><span>Pizzeria Albert, Järvikatu 3</span></button>
+          <button class="g" data-full="assets/img/pizza-juustoveto.webp"><img src="assets/img/pizza-juustoveto.webp" alt="Pepperonipizzan pala ja venyvä juusto" loading="lazy" width="900" height="1125"><span>Venyvää juustoa</span></button>
+          <button class="g g-wide" data-full="assets/img/albert-mainos.webp"><img src="assets/img/albert-mainos.webp" alt="Albert Pizza Kebab -mainos" loading="lazy" width="595" height="287"><span>Albert – pizza ✦ kebab</span></button>
+          <button class="g" data-full="assets/img/kebab-varras.webp"><img src="assets/img/kebab-varras.webp" alt="Kebabliha pyörivässä vartaassa" loading="lazy" width="800" height="1067"><span>Kebabvarras</span></button>
+          <button class="g" data-full="assets/img/kebab-ranskalaiset.webp"><img src="assets/img/kebab-ranskalaiset.webp" alt="Kebab ja ranskalaiset" loading="lazy" width="1000" height="750"><span>Kebab ranskalaisilla</span></button>
+          <button class="g" data-full="assets/img/pizza-margherita.webp"><img src="assets/img/pizza-margherita.webp" alt="Margherita-pizza" loading="lazy" width="1000" height="750"><span>Margherita</span></button>
+          <button class="g" data-full="assets/img/salaatti.webp"><img src="assets/img/salaatti.webp" alt="Raikas salaattiannos" loading="lazy" width="1000" height="750"><span>Täyttävät salaatit</span></button>
+          <button class="g" data-full="assets/img/grilliannos.webp"><img src="assets/img/grilliannos.webp" alt="Pihvi ja ranskalaiset" loading="lazy" width="1000" height="750"><span>Grilliannokset</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Map / Find us ===== -->
+    <section class="section find" id="loyda" aria-labelledby="loyda-otsikko">
+      <div class="wrap">
+        <header class="section-head section-head-row">
+          <div>
+            <p class="kicker kicker-yellow">Löydä perille</p>
+            <h2 id="loyda-otsikko">Keskellä Alajärveä</h2>
+          </div>
+          <p class="section-lead">Järvikatu 3, muutaman minuutin kävelymatka Aalto-keskukselta ja kirkolta.</p>
+        </header>
+
+        <div class="find-grid">
+          <div class="map-shell">
+            <div id="kartta" class="map" role="region" aria-label="Kartta: Pizzeria Albert, Järvikatu 3, Alajärvi"></div>
+            <div class="map-tools">
+              <div class="map-layers" role="radiogroup" aria-label="Karttatyyli">
+                <button role="radio" aria-checked="true" data-layer="kartta">Kartta</button>
+                <button role="radio" aria-checked="false" data-layer="tumma">Tumma</button>
+                <button role="radio" aria-checked="false" data-layer="ilmakuva">Ilmakuva</button>
+              </div>
+              <button class="map-btn" data-map-recenter title="Keskitä Albertiin"><svg class="i"><use href="#ico-pin"/></svg><span class="sr-only">Keskitä Albertiin</span></button>
+            </div>
+            <p class="map-hint" data-map-hint>Klikkaa karttaa ottaaksesi rullazoomin käyttöön</p>
+          </div>
+
+          <aside class="find-panel">
+            <div class="panel-block">
+              <h3>Pizzeria Albert</h3>
+              <p class="addr">Järvikatu 3 B<br>62900 Alajärvi</p>
+              <div class="route-btns">
+                <a class="btn btn-yellow btn-sm" data-route="google" target="_blank" rel="noopener"><svg class="i"><use href="#ico-route"/></svg>Google Maps</a>
+                <a class="btn btn-ghost btn-sm" data-route="apple" target="_blank" rel="noopener">Apple Kartat</a>
+                <a class="btn btn-ghost btn-sm" data-route="waze" target="_blank" rel="noopener">Waze</a>
+              </div>
+            </div>
+
+            <div class="panel-block">
+              <button class="btn btn-outline btn-block" data-locate><svg class="i"><use href="#ico-locate"/></svg>Kuinka kaukana olen?</button>
+              <div class="distance" data-distance hidden>
+                <p class="distance-km" data-distance-km></p>
+                <ul class="eta">
+                  <li><span>Kävellen</span><b data-eta-walk></b></li>
+                  <li><span>Pyörällä</span><b data-eta-bike></b></li>
+                  <li><span>Autolla</span><b data-eta-car></b></li>
+                </ul>
+                <p class="fineprint">Arvio tieverkon mukaan linnuntiestä (×1,3).</p>
+              </div>
+              <p class="locate-error" data-locate-error hidden></p>
+            </div>
+
+            <div class="panel-block">
+              <h4>Aukioloajat</h4>
+              <table class="hours" data-hours></table>
+              <p class="fineprint">Poikkeusaukiolot pyhinä: katso <a href="https://www.facebook.com/pizzeriaalbert/" target="_blank" rel="noopener">Facebook</a> tai soita.</p>
+            </div>
+
+            <div class="panel-block">
+              <h4>Lähellä</h4>
+              <ul class="nearby" data-nearby></ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div class="footer-brand">
+        <svg class="arch-logo" viewBox="0 0 360 220" role="img" aria-label="Albert – pizza kebab">
+          <defs><path id="arch" d="M30,150 Q180,10 330,150"/></defs>
+          <text class="arch-text"><textPath href="#arch" startOffset="50%" text-anchor="middle">ALBERT</textPath></text>
+          <g transform="translate(180 150)">
+            <circle r="34" fill="#d7261e" stroke="#141210" stroke-width="3"/>
+            <g fill="#ffd21f"><circle cx="-12" cy="-14" r="4"/><circle cx="14" cy="-8" r="4"/><circle cx="-16" cy="10" r="4"/><circle cx="10" cy="16" r="4"/><circle cx="0" cy="0" r="3"/></g>
+            <path d="M0 0 L-22 -26 A34 34 0 0 1 4 -34 Z" fill="#141210"/>
+          </g>
+          <text x="180" y="212" text-anchor="middle" class="arch-sub">PIZZA ✦ KEBAB</text>
+        </svg>
+      </div>
+      <div>
+        <h4>Yhteystiedot</h4>
+        <p>Järvikatu 3, 62900 Alajärvi<br><a href="tel:+35865576310">(06) 557 6310</a></p>
+        <p><a class="fb" href="https://www.facebook.com/pizzeriaalbert/" target="_blank" rel="noopener"><svg class="i"><use href="#ico-fb"/></svg>Pizzeria Albert Facebookissa</a></p>
+      </div>
+      <div>
+        <h4>Aukiolo</h4>
+        <p>Ma–to 10.30–22.00<br>Pe–la 10.30–23.00<br>Su 10.30–22.00</p>
+      </div>
+      <div>
+        <h4>Sivulla</h4>
+        <p><a href="#menu">Ruokalista</a><br><a href="#fantasia">Fantasia-pizza</a><br><a href="#loyda">Kartta &amp; reitit</a></p>
+      </div>
+    </div>
+    <div class="wrap footer-bottom">
+      <p>© <span data-year>2026</span> Pizzeria Albert, Alajärvi</p>
+      <p class="credits">Julkisivu- ja mainoskuva: Pizzeria Albert. Ruokakuvat ovat tunnelmakuvia (Unsplash). Kartta © OpenStreetMap-tekijät.</p>
+    </div>
+  </footer>
+
+  <!-- ===== Order list ===== -->
+  <button class="cart-fab" data-cart-open aria-controls="tilauslista" aria-expanded="false">
+    <svg class="i"><use href="#ico-bag"/></svg>
+    <span>Tilauslista</span>
+    <b class="cart-count" data-cart-count>0</b>
+    <span class="cart-total" data-cart-fab-total></span>
+  </button>
+
+  <div class="drawer-backdrop" data-cart-close hidden></div>
+  <aside class="drawer" id="tilauslista" aria-label="Tilauslista" aria-hidden="true" tabindex="-1">
+    <header class="drawer-head">
+      <h2>Tilauslista</h2>
+      <button class="icon-btn" data-cart-close aria-label="Sulje tilauslista"><svg class="i"><use href="#ico-close"/></svg></button>
+    </header>
+    <div class="drawer-body">
+      <ul class="cart-list" data-cart-list></ul>
+      <div class="cart-empty" data-cart-empty>
+        <p>Lista on tyhjä.</p>
+        <p class="fineprint">Lisää tuotteita klikkaamalla hintaa ruokalistalla.</p>
+      </div>
+    </div>
+    <footer class="drawer-foot">
+      <div class="cart-sum"><span>Yhteensä</span><b data-cart-total>0,00 €</b></div>
+      <a class="btn btn-yellow btn-block" href="tel:+35865576310"><svg class="i"><use href="#ico-phone"/></svg>Soita ja tilaa · (06) 557 6310</a>
+      <div class="drawer-row">
+        <button class="btn btn-ghost btn-sm" data-cart-copy><svg class="i"><use href="#ico-copy"/></svg>Kopioi lista</button>
+        <button class="btn btn-ghost btn-sm" data-cart-clear>Tyhjennä</button>
+      </div>
+      <p class="fineprint">Tilaukset puhelimitse – lista auttaa muistamaan, mitä olit tilaamassa.</p>
+    </footer>
+  </aside>
+
+  <dialog class="lightbox" data-lightbox>
+    <button class="icon-btn lightbox-close" data-lightbox-close aria-label="Sulje kuva"><svg class="i"><use href="#ico-close"/></svg></button>
+    <img alt="" data-lightbox-img>
+    <p data-lightbox-cap></p>
+  </dialog>
+
+  <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="assets/js/menu-data.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
