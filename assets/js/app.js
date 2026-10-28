@@ -582,10 +582,33 @@
     });
   }
 
+  // Jos Leaflet-skripti ei ole latautunut (esim. esikatselupalvelut eivät aja sitä), ladataan se itse ja odotetaan hetki
+  const LEAFLET_JS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+  const LEAFLET_CSS = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+  function whenLeaflet(cb, tries = 0) {
+    if (typeof window.L !== "undefined") return cb();
+    if (tries === 5) {
+      if (!$$("link[rel=stylesheet]").some((l) => l.href.includes("leaflet"))) {
+        const css = document.createElement("link");
+        css.rel = "stylesheet"; css.href = LEAFLET_CSS;
+        document.head.appendChild(css);
+      }
+      const js = document.createElement("script");
+      js.src = LEAFLET_JS;
+      document.head.appendChild(js);
+    }
+    if (tries >= 75) return cb();
+    setTimeout(() => whenLeaflet(cb, tries + 1), 200);
+  }
+
   function initMap() {
     routeLinks();
     const el = $("#kartta");
     if (!el) return;
+    whenLeaflet(() => buildMap(el));
+  }
+
+  function buildMap(el) {
     if (typeof window.L === "undefined") {
       el.innerHTML = `<div style="display:grid;place-items:center;height:100%;padding:24px;text-align:center;color:#fff8ec">
         <p>Karttaa ei voitu ladata.<br><a href="https://www.openstreetmap.org/?mlat=${ALBERT[0]}&mlon=${ALBERT[1]}#map=17/${ALBERT[0]}/${ALBERT[1]}" target="_blank" rel="noopener">Avaa sijainti OpenStreetMapissa →</a></p></div>`;
@@ -683,6 +706,7 @@
 
     // Kartan koko voi muuttua, kun fontit/kuvat latautuvat
     window.addEventListener("load", () => map.invalidateSize());
+    setTimeout(() => map.invalidateSize(), 300);
   }
 
   /* ---------------------------------------------------------
