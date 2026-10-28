@@ -845,6 +845,10 @@
   /* ---------------------------------------------------------
      Käynnistys
      --------------------------------------------------------- */
+  // iOS Safari ei noudata viewportin user-scalable=no -asetusta, joten estetään sivun nipistyszoomaus erikseen.
+  // Kartan oma nipistyszoomaus toimii edelleen (Leaflet käyttää kosketustapahtumia, ei näitä eleitä).
+  ["gesturestart", "gesturechange"].forEach((ev) => document.addEventListener(ev, (e) => e.preventDefault(), { passive: false }));
+
   document.addEventListener("DOMContentLoaded", () => {
     const y = $("[data-year]");
     if (y) y.textContent = new Date().getFullYear();

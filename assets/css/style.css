@@ -39,7 +39,11 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px); }
+html {
+  scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + 12px);
+  /* Ei tuplanapautuszoomausta eikä sinistä/harmaata välähdystä napautuksessa */
+  touch-action: manipulation; -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%;
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
@@ -56,7 +60,13 @@ body {
   overflow-x: hidden;
 }
 
-img { max-width: 100%; height: auto; display: block; }
+img { max-width: 100%; height: auto; display: block; -webkit-user-drag: none; }
+
+/* Puhelimella tekstit ja kortit eivät maalaudu valituiksi (sinisiksi) selatessa; hakukenttään voi yhä kirjoittaa */
+@media (hover: none) and (pointer: coarse) {
+  body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+  input, textarea { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
+}
 a { color: inherit; }
 button { font: inherit; color: inherit; cursor: pointer; }
 h1, h2, h3, h4 { font-family: var(--display); font-variation-settings: "SOFT" 100, "WONK" 0; line-height: 1.05; margin: 0 0 .4em; letter-spacing: -.01em; }
