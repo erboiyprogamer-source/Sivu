@@ -2,7 +2,7 @@
 <html lang="fi">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Pizzeria Albert · Pizza & Kebab · Alajärvi</title>
   <meta name="description" content="Pizzeria Albert – Alajärven keskustan pizza- ja kebabravintola Järvikatu 3:ssa vuodesta 2011. Katso ruokalista, aukioloajat ja reittiohjeet.">
   <meta name="theme-color" content="#141210">
@@ -218,23 +218,50 @@
     <section class="section fantasia" id="fantasia" aria-labelledby="fantasia-otsikko">
       <div class="wrap fantasia-grid">
         <div class="fantasia-stage">
-          <svg class="fantasia-pizza" viewBox="0 0 400 400" role="img" aria-label="Oman pizzasi esikatselu" data-fantasia-svg>
-            <defs>
-              <radialGradient id="crust" cx="50%" cy="50%" r="50%">
-                <stop offset="80%" stop-color="#e9b04f"/><stop offset="93%" stop-color="#c98a32"/><stop offset="100%" stop-color="#9c6424"/>
-              </radialGradient>
-              <radialGradient id="sauce" cx="50%" cy="45%" r="55%">
-                <stop offset="0%" stop-color="#e2452f"/><stop offset="100%" stop-color="#b8281b"/>
-              </radialGradient>
-              <filter id="melt"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
-            </defs>
-            <circle cx="200" cy="200" r="190" fill="url(#crust)"/>
-            <circle cx="200" cy="200" r="164" fill="url(#sauce)"/>
-            <g filter="url(#melt)" opacity=".92">
-              <circle cx="200" cy="200" r="150" fill="#f7dc8a"/>
-            </g>
-            <g data-fantasia-toppings></g>
-          </svg>
+          <div class="fantasia-slot" data-fantasia-slot>
+            <div class="fantasia-float" data-fantasia-float>
+              <svg class="fantasia-pizza" viewBox="0 0 400 400" role="img" aria-label="Oman pizzasi esikatselu" data-fantasia-svg>
+                <defs>
+                  <radialGradient id="crust" cx="50%" cy="50%" r="50%">
+                    <stop offset="78%" stop-color="#f0c46e"/><stop offset="88%" stop-color="#dd9d45"/><stop offset="96%" stop-color="#b8752e"/><stop offset="100%" stop-color="#8a5220"/>
+                  </radialGradient>
+                  <radialGradient id="crust-shine" cx="34%" cy="28%" r="70%">
+                    <stop offset="0%" stop-color="#fff3d1" stop-opacity=".55"/><stop offset="55%" stop-color="#fff3d1" stop-opacity="0"/>
+                  </radialGradient>
+                  <radialGradient id="sauce" cx="50%" cy="45%" r="55%">
+                    <stop offset="0%" stop-color="#e2452f"/><stop offset="100%" stop-color="#a92316"/>
+                  </radialGradient>
+                  <radialGradient id="cheese" cx="45%" cy="40%" r="60%">
+                    <stop offset="0%" stop-color="#fff0b8"/><stop offset="60%" stop-color="#f9dd8c"/><stop offset="100%" stop-color="#efc463"/>
+                  </radialGradient>
+                  <radialGradient id="t-pep" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#d4452f"/><stop offset="75%" stop-color="#a8271a"/><stop offset="100%" stop-color="#6e140c"/></radialGradient>
+                  <radialGradient id="t-sal" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#c8463a"/><stop offset="100%" stop-color="#93231b"/></radialGradient>
+                  <radialGradient id="t-tom" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#ff8a6e"/><stop offset="70%" stop-color="#e5412f"/><stop offset="100%" stop-color="#b3261a"/></radialGradient>
+                  <radialGradient id="t-egg" cx="40%" cy="35%" r="60%"><stop offset="0%" stop-color="#ffd54a"/><stop offset="100%" stop-color="#e9a514"/></radialGradient>
+                  <linearGradient id="t-pine" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#ffe680"/><stop offset="100%" stop-color="#f2be2c"/></linearGradient>
+                  <linearGradient id="t-meat" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#a36a37"/><stop offset="100%" stop-color="#6b3f1c"/></linearGradient>
+                  <linearGradient id="t-ham" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#f7b8b9"/><stop offset="100%" stop-color="#e88d93"/></linearGradient>
+                  <filter id="melt"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="2" seed="4"/><feDisplacementMap in="SourceGraphic" scale="14"/></filter>
+                  <filter id="tshadow" x="-10%" y="-10%" width="120%" height="120%"><feDropShadow dx="1.2" dy="2.2" stdDeviation="1.4" flood-color="#5a2a08" flood-opacity=".38"/></filter>
+                </defs>
+                <circle cx="200" cy="200" r="190" fill="url(#crust)"/>
+                <g data-fantasia-crust></g>
+                <circle cx="200" cy="200" r="190" fill="url(#crust-shine)"/>
+                <circle cx="200" cy="200" r="167" fill="#7a3210" opacity=".35"/>
+                <circle cx="200" cy="200" r="164" fill="url(#sauce)"/>
+                <g filter="url(#melt)">
+                  <circle cx="200" cy="200" r="152" fill="url(#cheese)"/>
+                </g>
+                <g data-fantasia-cheese></g>
+                <g class="slice-lines" stroke="#9a5b1c" stroke-opacity=".18" stroke-width="2.5">
+                  <line x1="200" y1="14" x2="200" y2="386"/><line x1="39" y1="107" x2="361" y2="293"/><line x1="39" y1="293" x2="361" y2="107"/>
+                </g>
+                <g data-fantasia-toppings filter="url(#tshadow)"></g>
+                <ellipse cx="150" cy="120" rx="95" ry="55" fill="#fff" opacity=".07" transform="rotate(-30 150 120)"/>
+              </svg>
+              <span class="float-badge" data-fantasia-badge aria-hidden="true">0/4</span>
+            </div>
+          </div>
           <p class="fantasia-caption" data-fantasia-caption>Valitse neljä täytettä →</p>
         </div>
         <div class="fantasia-panel">
@@ -264,6 +291,10 @@
           <figure class="taped taped-a">
             <img src="assets/img/albert-julkisivu.webp" alt="Pizzeria Albertin julkisivu Järvikadulla: keltainen Albert-logo, punainen PIZZERIA-kyltti ja aukioloajat ovessa." width="1274" height="1145" loading="lazy">
           </figure>
+          <figure class="taped taped-c">
+            <img src="assets/img/albert-keittio.webp" alt="Pizzanpaistaja Albertin punaisessa paidassa työssä keittiön pizzauunin ääressä." width="387" height="516" loading="lazy">
+            <figcaption>Albertin keittiössä</figcaption>
+          </figure>
           <figure class="taped taped-b">
             <img src="assets/img/albert-mainos.webp" alt="Albert Pizza Kebab – Alajärven keskustassa -mainos, jossa pizza ja kebab ranskalaisilla." width="595" height="287" loading="lazy">
           </figure>
@@ -282,6 +313,23 @@
             <li><b>2021</b><span>10-vuotisjuhlat, uusittu keittiö</span></li>
             <li><b>2026</b><span>15 vuotta Alajärven keskustassa</span></li>
           </ol>
+        </div>
+      </div>
+      <div class="wrap">
+        <div class="real-photos" data-real-photos>
+          <p class="real-photos-title">✦ Suoraan Albertista – ravintolan omia kuvia</p>
+          <button class="real" data-full="assets/img/albert-pizza-pepperoni.webp">
+            <img src="assets/img/albert-pizza-pepperoni.webp" alt="Albertin pizza pahvilaatikossa: pepperonia, tomaattia ja fetajuustoa." width="387" height="516" loading="lazy">
+            <span>Pepperonia, tomaattia &amp; fetaa</span>
+          </button>
+          <button class="real" data-full="assets/img/albert-pizza-kastike.webp">
+            <img src="assets/img/albert-pizza-kastike.webp" alt="Albertin pizza pahvilaatikossa, päällä kastikespiraali." width="434" height="460" loading="lazy">
+            <span>Kastikespiraali päälle</span>
+          </button>
+          <button class="real real-wide" data-full="assets/img/albert-sali.webp">
+            <img src="assets/img/albert-sali.webp" alt="Pizzeria Albertin sali: pöytiä, tuoleja, tiski ja juomakaappi." width="259" height="194" loading="lazy">
+            <span>Albertin sali</span>
+          </button>
         </div>
       </div>
     </section>
@@ -403,7 +451,7 @@
     </div>
     <div class="wrap footer-bottom">
       <p>© <span data-year>2026</span> Pizzeria Albert, Alajärvi</p>
-      <p class="credits">Julkisivu- ja mainoskuva: Pizzeria Albert. Ruokakuvat ovat tunnelmakuvia (Unsplash). Kartta © OpenStreetMap-tekijät.</p>
+      <p class="credits">Julkisivu-, mainos-, keittiö-, sali- ja pizzakuvat “Suoraan Albertista”: Pizzeria Albert. Muut ruokakuvat ovat tunnelmakuvia (Unsplash). Kartta © OpenStreetMap-tekijät.</p>
     </div>
   </footer>
 
